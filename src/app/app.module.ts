@@ -12,6 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StorageService } from './services/storage.service';
 import { ModalPopupComponent } from './shared/modal-popup/modal-popup.component';
 import { AlertsComponent } from './shared/alerts/alerts.component';
+import { AuthGuardService } from './services/guards/auth-guard.service';
+import { LoginGuardService } from './services/guards/login-guard.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,7 @@ import { AlertsComponent } from './shared/alerts/alerts.component';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [StorageService],
+  providers: [StorageService, AuthGuardService, LoginGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

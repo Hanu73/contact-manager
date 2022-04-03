@@ -77,6 +77,10 @@ export class SharedService {
     );
   }
 
+  isUserLoggedIn(){
+    return this._storageService.getLocalStorage('currentUser');
+  }
+
   userLogout() {
     this._storageService.deleteLocalStorage('currentUser');
   }
