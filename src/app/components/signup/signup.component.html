@@ -15,31 +15,62 @@
                   <p>Please Signup by providing below details</p>
 
                   <div class="form-outline mb-2">
-                    <label class="form-label" for="registerName"
-                      >Name <span class="text-red">*</span></label
+                    <label class="form-label" for="firstname"
+                      >First Name <span class="text-red">*</span></label
                     >
                     <input
                       type="text"
-                      formControlName="name"
-                      id="registerName"
+                      formControlName="firstname"
+                      id="firstname"
                       class="form-control"
-                      placeholder="Please enter the Name"
+                      placeholder="Please enter the First Name"
                     />
                   </div>
+
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="lastname"
+                      >Last Name <span class="text-red">*</span></label
+                    >
+                    <input
+                      type="text"
+                      formControlName="lastname"
+                      id="lastname"
+                      class="form-control"
+                      placeholder="Please enter the Last Name"
+                    />
+                  </div>
+
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="aadhaar"
+                      >Aadhaar Id <span class="text-red">*</span></label
+                    >
+                    <input
+                      type="number"
+                      formControlName="aadhaar"
+                      id="aadhaar"
+                      class="form-control"
+                      placeholder="Please enter the Aadhaar #"
+                      (blur)="checkAadhaarValidation(signUpForm.value.aadhaar)"
+                    />
+                  </div>
+
+                  <p class="required" *ngIf="showAadhaarError">
+                    Please enter a valid Aadhar #
+                  </p>
 
                   <div class="form-outline mb-2">
                     <label class="form-label" for="registerEmail"
                       >Email <span class="text-red">*</span> &nbsp;
                       <p class="emailCondition mb-0">
-                        {{ domains.length > 1 ? "Domains" : "Domain" }} of only
+                        {{ domains?.length > 1 ? "Domains" : "Domain" }} of only
                         <span
                           class="text-bold"
                           *ngFor="let domain of domains; let isLast = last"
                         >
-                          {{ domains.length > 1 && isLast ? "&" : "" }}
+                          {{ domains?.length > 1 && isLast ? "&" : "" }}
                           {{ domain }} {{ !isLast ? "," : "" }}</span
                         >
-                        {{ domains.length > 1 ? "are" : "is" }}
+                        {{ domains?.length > 1 ? "are" : "is" }}
                         allowed to signup.
                       </p>
                     </label>
@@ -74,11 +105,11 @@
                       type="submit"
                       class="btn btn-primary btn-block mt-2 w-100"
                       (click)="signup()"
+                      [disabled]="!signUpForm.valid"
                     >
                       Sign Up
                     </button>
                   </div>
-                  <!-- [disabled]="!signUpForm.valid" -->
                 </form>
                 <div
                   class="d-flex align-items-center justify-content-center pb-4"

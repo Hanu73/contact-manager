@@ -14,6 +14,8 @@ import { ModalPopupComponent } from './shared/modal-popup/modal-popup.component'
 import { AlertsComponent } from './shared/alerts/alerts.component';
 import { AuthGuardService } from './services/guards/auth-guard.service';
 import { LoginGuardService } from './services/guards/login-guard.service';
+import { ContactRoutingModule } from './contacts/contact-routing.module';
+import { ContactsModule } from './contacts/contacts.module';
 
 @NgModule({
   declarations: [
@@ -24,14 +26,16 @@ import { LoginGuardService } from './services/guards/login-guard.service';
     LoginComponent,
     SignupComponent,
     ModalPopupComponent,
-    AlertsComponent
+    AlertsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ContactRoutingModule,
+    ContactsModule,
   ],
   providers: [StorageService, AuthGuardService, LoginGuardService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

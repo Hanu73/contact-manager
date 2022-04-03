@@ -1,3 +1,7 @@
+:root{
+  --card-fill : #F7F7F7;
+}
+
 .gradient-custom {
   background: linear-gradient(
     150deg,
@@ -24,7 +28,7 @@
 .w-100 {
   width: 100%;
 }
-.text-red {
+.text-red, .required {
   color: red;
 }
 .emailCondition {
@@ -125,6 +129,14 @@
 
 /* End Of Alerts  */
 
-.cursor-pointer {
+.c-pointer {
   cursor: pointer;
+}
+
+/* features styles */
+
+.productImageStyles{
+  width: 150px;
+  height: 150px;
+  max-height: 150px;
 }

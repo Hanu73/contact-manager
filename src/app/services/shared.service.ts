@@ -9,6 +9,9 @@ import { StorageService } from './storage.service';
 })
 export class SharedService {
   currentRoute: string;
+  currentUserDetails: any;
+  allUsers: any;
+
   modalPopup$ = new BehaviorSubject<any>([]);
   getModalPopupStatus = this.modalPopup$.asObservable();
 
@@ -18,7 +21,10 @@ export class SharedService {
   constructor(
     private readonly _storageService: StorageService,
     private readonly router: Router
-  ) {}
+  ) {
+    this.allUsers = this.getAllUserDetails();
+    this.currentUserDetails = this.getCurrentUserDetails();
+  }
 
   //random id generator
   uniqueRandomID = (length) => {
@@ -44,28 +50,34 @@ export class SharedService {
   }
 
   getUniqueIDs() {
-    return JSON.parse(this._storageService.getLocalStorage('userID'));
+    return JSON.parse(this._storageService.getLocalStorage('allUserIds'));
   }
 
   getAllUserDetails() {
-    return JSON.parse(this._storageService.getLocalStorage('userDetails'));
+    return JSON.parse(this._storageService.getLocalStorage('allUsers'));
   }
 
-  addNewUser(newUser) {
-    const allUsers = this.getAllUserDetails();
-    const updatedUsersList =
-      allUsers && allUsers.length ? [...allUsers, newUser] : [newUser];
+  updateAllusers(updatedUsersList) {
     this._storageService.setLocalStorage(
-      'userDetails',
+      'allUsers',
       JSON.stringify(updatedUsersList)
     );
   }
+
+  addNewUser(newUser) {
+    const updatedUsersList =
+      this.allUsers && this.allUsers?.length
+        ? [...this.allUsers, newUser]
+        : [newUser];
+    this.updateAllusers(updatedUsersList);
+  }
+
   addNewUserID(newUserID: string) {
     const uniqueIDs = this.getUniqueIDs();
     const allUniqueIDs =
       uniqueIDs && uniqueIDs?.length ? [...uniqueIDs, newUserID] : [newUserID];
     this._storageService.setLocalStorage(
-      'userID',
+      'allUserIds',
       JSON.stringify(allUniqueIDs)
     );
   }
@@ -77,11 +89,33 @@ export class SharedService {
     );
   }
 
-  isUserLoggedIn(){
+  updateCurrentUser(userDetails) {
+    this.currentUser(userDetails);
+  }
+
+  getCurrentUserDetails() {
+    return JSON.parse(this._storageService.getLocalStorage('currentUser'));
+  }
+
+  isUserLoggedIn() {
     return this._storageService.getLocalStorage('currentUser');
   }
 
   userLogout() {
     this._storageService.deleteLocalStorage('currentUser');
+  }
+
+  addContactsForUser(contactDetails) {
+    this.allUsers.map((user) => {
+      if (user.id === this.currentUserDetails.id) {
+        const contacts =
+          user.contacts && user.contacts?.length
+            ? [...user.contacts, contactDetails]
+            : [contactDetails];
+        user.contacts = contacts;
+        this.updateCurrentUser(user);
+      }
+    });
+    this.updateAllusers(this.allUsers);
   }
 }

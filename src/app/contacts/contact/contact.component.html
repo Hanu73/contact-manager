@@ -1,0 +1,124 @@
+<section class="h-100 gradient-form" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-10 col-md-10 col-xs-12 col-sm-12">
+              <div class="card-body p-md-5 mx-md-4">
+                <div class="text-center">
+                  <i class="fa fa-address-book fs-100"></i>
+                  <h4 class="mt-1 mb-5 pb-1">Create a Contact</h4>
+                </div>
+                <div
+                  class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-sm-12"
+                >
+                  <form class="mb-5" [formGroup]="contactForm">
+                    <div class="form-outline mb-2">
+                      <label class="form-label" for="firstname"
+                        >First Name <span class="text-red">*</span></label
+                      >
+                      <input
+                        type="text"
+                        formControlName="firstname"
+                        id="firstname"
+                        class="form-control"
+                        placeholder="Please enter the First Name"
+                      />
+                    </div>
+
+                    <div class="form-outline mb-2">
+                      <label class="form-label" for="lastname"
+                        >Last Name
+                      </label>
+                      <input
+                        type="text"
+                        formControlName="lastname"
+                        id="lastname"
+                        class="form-control"
+                        placeholder="Please enter the Last Name"
+                      />
+                    </div>
+
+                    <div class="form-outline mb-2">
+                      <label class="form-label" for="phonenumber"
+                        >Phone Number <span class="text-red">*</span>
+                      </label>
+                      <input
+                        type="number"
+                        formControlName="phonenumber"
+                        id="phonenumber"
+                        class="form-control"
+                        (blur)="
+                          checkPhoneNumberValidation(
+                            contactForm.value.phonenumber
+                          )
+                        "
+                        placeholder="Please enter the Phone Number"
+                      />
+                    </div>
+
+                    <p class="required" *ngIf="showPhoneNumberError">
+                      Please enter a valid 10 Digit Phone Number
+                    </p>
+
+                    <p></p>
+
+                    <div class="form-outline mb-2">
+                      <label class="form-label" for="registerEmail"
+                        >Email
+                      </label>
+                      <input
+                        type="email"
+                        formControlName="email"
+                        id="registerEmail"
+                        class="form-control"
+                        placeholder="Please enter the Email"
+                      />
+                    </div>
+
+                    <div class="form-outline mb-2">
+                      <label class="form-label" for="nickname">Nick name</label>
+                      <input
+                        type="text"
+                        formControlName="nickname"
+                        id="nickname"
+                        class="form-control"
+                        placeholder="Please enter the Nick Name"
+                      />
+                    </div>
+
+                    <div class="mt-4">
+                      <p class="warningMessage mb-0" *ngIf="!contactForm.valid">
+                        <span class="text-red align-center">*</span>
+                        <b> Marked fields are required</b>
+                      </p>
+                      <button
+                        type="submit"
+                        class="btn btn-primary btn-block mt-2 w-100"
+                        (click)="create()"
+                      >
+                        Create the contact
+                      </button>
+                    </div>
+
+                    <a
+                      class="d-flex justify-content-center mt-4"
+                      [routerLink]="'/contacts-groups'"
+                    >
+                      View All Your Contacts
+                </a>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="hidden-sm hidden-xs col-lg-2 col-md-2 col-xs-12 col-sm-12 d-flex align-items-center gradient-custom"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     const getAllUserDetails = this._sharedService.getAllUserDetails();
-    if(getAllUserDetails.length) {
+    if(getAllUserDetails?.length) {
       this.validateUser(getAllUserDetails, this.loginForm.value);
     } else {
       this._sharedService.showPopup({

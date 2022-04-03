@@ -19,15 +19,15 @@
                       >Email &nbsp;</label
                     >
                     <p class="emailCondition mb-0">
-                      {{ domains.length > 1 ? "Domains" : "Domain" }} of only
+                      {{ domains?.length > 1 ? "Domains" : "Domain" }} of only
                       <span
                         class="text-bold"
                         *ngFor="let domain of domains; let isLast = last"
                       >
-                        {{ domains.length > 1 && isLast ? "&" : "" }}
+                        {{ domains?.length > 1 && isLast ? "&" : "" }}
                         {{ domain }} {{ !isLast ? "," : "" }}</span
                       >
-                      {{ domains.length > 1 ? "are" : "is" }}
+                      {{ domains?.length > 1 ? "are" : "is" }}
                       allowed to signup.
                     </p>
                     <input
