@@ -1,0 +1,7 @@
+.headerTitleStyle{
+    display: flex;
+    justify-content: center; 
+}
+.navbar-styles {
+    background: aliceblue;
+}

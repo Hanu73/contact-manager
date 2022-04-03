@@ -1,0 +1,13 @@
+<nav class="navbar navbar-default navbar-styles">
+  <div class="container-fluid">
+    <div class="navbar-header col-md-4">
+      <a class="navbar-brand" [routerLink]="['/']"><b>Contact Manager</b></a>
+    </div>
+    <div class="col-md-5 mt-1"></div>
+    <div class="col-md-1 mt-1" *ngIf="!hideLogoutNavs.includes(currentRoute)">
+      <a class="cursor-pointer"(click)="logOut()"
+        ><b>Logout <i class="fa fa-sign-out" aria-hidden="true"></i> </b
+      ></a>
+    </div>
+  </div>
+</nav>

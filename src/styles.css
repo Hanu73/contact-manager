@@ -1,1 +1,130 @@
-/* You can add global styles to this file, and also import other style files */
+.gradient-custom {
+  background: linear-gradient(
+    150deg,
+    #5bb1ac,
+    #65c1b4,
+    #73d1bb,
+    #83e0c0,
+    #95f0c4,
+    #aaffc7
+  );
+}
+.positionCenter {
+  transform: translate(50%, 50%);
+}
+.center-div {
+  justify-content: center;
+}
+.fs-100 {
+  font-size: 100px !important;
+}
+.clr-black {
+  color: #000;
+}
+.w-100 {
+  width: 100%;
+}
+.text-red {
+  color: red;
+}
+.emailCondition {
+  font-size: 0.65em;
+  display: inline-block;
+}
+.text-bold {
+  font-weight: bold;
+}
+.font-normal {
+  font-weight: normal !important;
+}
+.warningMessage {
+  font-size: 0.7em;
+  color: #adad2e;
+}
+
+/* Modal Popup */
+
+.popupStyles {
+  position: fixed;
+  top: 0%;
+  right: 50%;
+  transform: translate(50%);
+  width: 100%;
+  background: rgb(10.1, 6.1, 7.1, 0.1);
+  height: 100%;
+  z-index: 100;
+}
+.innerModal {
+  left: 50%;
+  position: absolute;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
+  background-color: #fff;
+  width: 50%;
+  min-height: 25%;
+  top: 25%;
+}
+
+.modal-title {
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+}
+.modal-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+.closeIcon {
+  display: flex;
+  justify-content: end;
+}
+
+/* End Of popup  */
+
+/* Alerts */
+
+.alertStyles {
+  position: fixed !important;
+  bottom: 0;
+  z-index: 103;
+  font-weight: bold;
+  right: 20px;
+  border: 1px solid #000 !important;
+}
+
+.closePopup {
+  cursor: pointer;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+/* End Of Alerts  */
+
+.cursor-pointer {
+  cursor: pointer;
+}

@@ -1,0 +1,114 @@
+<section class="h-100 gradient-form" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+                <div class="text-center">
+                  <i class="fa fa-address-book fs-100"></i>
+                  <h4 class="mt-1 mb-5 pb-1">Contact Manager</h4>
+                </div>
+
+                <form class="mb-5" [formGroup]="signUpForm">
+                  <p>Please Signup by providing below details</p>
+
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="registerName"
+                      >Name <span class="text-red">*</span></label
+                    >
+                    <input
+                      type="text"
+                      formControlName="name"
+                      id="registerName"
+                      class="form-control"
+                      placeholder="Please enter the Name"
+                    />
+                  </div>
+
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="registerEmail"
+                      >Email <span class="text-red">*</span> &nbsp;
+                      <p class="emailCondition mb-0">
+                        {{ domains.length > 1 ? "Domains" : "Domain" }} of only
+                        <span
+                          class="text-bold"
+                          *ngFor="let domain of domains; let isLast = last"
+                        >
+                          {{ domains.length > 1 && isLast ? "&" : "" }}
+                          {{ domain }} {{ !isLast ? "," : "" }}</span
+                        >
+                        {{ domains.length > 1 ? "are" : "is" }}
+                        allowed to signup.
+                      </p>
+                    </label>
+                    <input
+                      type="email"
+                      formControlName="email"
+                      id="registerEmail"
+                      class="form-control"
+                      placeholder="Please enter the Email"
+                    />
+                  </div>
+
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="registerPassword"
+                      >Password <span class="text-red">*</span></label
+                    >
+                    <input
+                      type="password"
+                      formControlName="password"
+                      id="registerPassword"
+                      class="form-control"
+                      placeholder="Please enter the Password"
+                    />
+                  </div>
+
+                  <div class="mt-4">
+                    <p class="warningMessage mb-0" *ngIf="!signUpForm.valid">
+                      <span class="text-red align-center">*</span>
+                      <b> Marked fields are required</b>
+                    </p>
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-block mt-2 w-100"
+                      (click)="signup()"
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                  <!-- [disabled]="!signUpForm.valid" -->
+                </form>
+                <div
+                  class="d-flex align-items-center justify-content-center pb-4"
+                >
+                  <p class="mt-4 me-2">Already have an account?</p>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger"
+                    [routerLink]="'/login'"
+                  >
+                    Log In
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 d-flex align-items-center gradient-custom">
+              <div class="px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">We are more than just a company</h4>
+                <p class="p mb-0">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

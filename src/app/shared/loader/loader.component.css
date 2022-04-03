@@ -1,0 +1,29 @@
+.spinner {
+    border : 6px solid #337ab7;
+    border-radius: 50%;
+    width:60px;
+    height:60px;
+    top: 40%;
+    left: 45%;
+    position: absolute; 
+    border-top:6px solid #0773a93b; 
+    animation: spin 1000ms linear infinite; 
+    z-index: 101;
+    transform:translateY(-50%);
+    }
+    
+    @keyframes spin {
+    0% { transform : rotate(0deg)}
+    100% { transform: rotate(360deg)}
+    }
+    .overlayStyle{
+    width: 100%;
+    background: rgb(10.1,6.1,7.1,0.1);
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 102;
+    }
+    
+    
+    

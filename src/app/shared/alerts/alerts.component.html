@@ -1,0 +1,9 @@
+<div
+  role="alert"
+  class="alert alertStyles"
+  [ngClass]="alertData.color"
+  *ngIf="showAlert"
+>
+  {{ alertData.message }} &nbsp;
+  <i class="fa fa-times closePopup" (click)="dismissAlerts()"></i>
+</div>
