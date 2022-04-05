@@ -1,6 +1,11 @@
 # ContactManager
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6.
+ Our app enables users to easily store and find contact information, such as names, email, and telephone numbers.
+ Currently App uses local storage for storing the data
+ 
+## Hosted URL 
+
+https://employee-group-manager.herokuapp.com/
 
 ## Development server
 
