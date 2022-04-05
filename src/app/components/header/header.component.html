@@ -3,9 +3,16 @@
     <div class="navbar-header col-md-4">
       <a class="navbar-brand" [routerLink]="['/']"><b>Contact Manager</b></a>
     </div>
-    <div class="col-md-5 mt-1"></div>
+    <div class="col-md-5 mt-1"  *ngIf="!hideLogoutNavs.includes(currentRoute)">
+      <a class="navbar-brand font-size-16" [routerLink]="['/']"
+        ><b
+          ><i class="fa fa-home navColor" aria-hidden="true"></i> &nbsp; Go to
+          Home</b
+        ></a
+      >
+    </div>
     <div class="col-md-1 mt-1" *ngIf="!hideLogoutNavs.includes(currentRoute)">
-      <a class="cursor-pointer"(click)="logOut()"
+      <a class="c-pointer" (click)="logOut()"
         ><b>Logout <i class="fa fa-sign-out" aria-hidden="true"></i> </b
       ></a>
     </div>

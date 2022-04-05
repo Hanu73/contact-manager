@@ -27,18 +27,12 @@ export class SignupComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this._sharedService.getUniqueIDs());
-
     this.emailRegex =
       '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?(inmar).*$';
     this.signUpForm = new FormGroup({
       firstname: new FormControl('', Validators.required),
       lastname: new FormControl('', Validators.required),
-      aadhaar: new FormControl('', [
-        Validators.required,
-        Validators.min(12),
-        Validators.max(12),
-      ]),
+      aadhaar: new FormControl('', [Validators.required]),
       email: new FormControl('', [
         Validators.required,
         Validators.email,
@@ -53,12 +47,12 @@ export class SignupComponent implements OnInit {
   }
 
   signup() {
-    const id = this._sharedService.uniqueRandomID(10);
-    const userData = { ...this.signUpForm.value, id };
+    const userId = this._sharedService.uniqueRandomID(10);
+    const userData = { ...this.signUpForm.value, userId };
     this.signUpForm.reset();
 
     this._sharedService.addNewUser(userData);
-    this._sharedService.addNewUserID(id);
+    this._sharedService.addNewUserID(userId);
 
     let alertsData = {
       message: 'Successfully Signed Up',

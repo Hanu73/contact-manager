@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { VALID_PHONE_NUMBER_LENGTH } from 'src/app/constants';
+import {
+  SUCCESS_ALERT_CLASS,
+  VALID_PHONE_NUMBER_LENGTH,
+} from 'src/app/constants';
 import { IUserDetails } from 'src/app/interfaces/IUserDetails';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -14,22 +17,41 @@ export class ContactComponent implements OnInit {
   currentUser: IUserDetails;
   showPhoneNumberError = false;
   newContacts: any;
+  allGroups: any;
+  subscription: any;
+
   constructor(private _sharedService: SharedService) {}
 
   ngOnInit(): void {
     this.currentUser = this._sharedService.getCurrentUserDetails();
     this.contactForm = new FormGroup({
+      groupid: new FormControl('default', Validators.required),
       firstname: new FormControl('', Validators.required),
       lastname: new FormControl(''),
-      email: new FormControl('', Validators.required),
-      phonenumber: new FormControl('', [
-        Validators.required,
-        Validators.max(10),
-        Validators.min(10),
-      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phonenumber: new FormControl('', [Validators.required]),
       nickname: new FormControl(''),
-      active: new FormControl(''),
+      active: new FormControl('true'),
+      createdBy: new FormControl(''),
     });
+    this.getAllGroups();
+    this.getGroupIdFromGroupPage();
+  }
+
+  getAllGroups() {
+    this.allGroups = this._sharedService.getAllGroupDetails();
+  }
+
+  getGroupIdFromGroupPage() {
+    this.subscription = this._sharedService.getNewGroupId.subscribe(
+      (selectedGroupId) => {
+        if (selectedGroupId) {
+          this.contactForm.patchValue({
+            groupid: selectedGroupId,
+          });
+        }
+      }
+    );
   }
 
   checkPhoneNumberValidation(val) {
@@ -38,9 +60,22 @@ export class ContactComponent implements OnInit {
   }
 
   create() {
-    const active = true;
-    const contactDetails = { ...this.contactForm.value, active };
-    this._sharedService.addContactsForUser(contactDetails);
-    console.log(this._sharedService.getAllUserDetails())
+    if (this.contactForm.valid) {
+      const { userId } = this.currentUser;
+      this.contactForm.patchValue({
+        createdBy: userId,
+      });
+      this._sharedService.addContactsForUser(this.contactForm.value);
+      let alertsData = {
+        message: 'Successfully Created the Contact',
+        color: SUCCESS_ALERT_CLASS,
+      };
+
+      this._sharedService.showAlerts(alertsData);
+      this.contactForm.reset();
+      this.contactForm.patchValue({
+        groupid: 'default',
+      });
+    }
   }
 }

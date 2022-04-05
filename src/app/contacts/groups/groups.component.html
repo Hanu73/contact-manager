@@ -1,1 +1,113 @@
-<p>groups works!</p>
+<section class="h-100 gradient-form" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-10 col-md-10 col-xs-12 col-sm-12">
+              <div class="card-body p-md-5 mx-md-4">
+                <div
+                  class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-sm-12"
+                >
+
+                <h4 class="mt-4 mb-5 pb-1 text-center">Create a Group</h4>
+                  <form class="mb-5" [formGroup]="groupForm">
+                    <div class="text-center mb-4">
+                      <label for="image">
+                        <div class="groupImage">
+                          <i
+                            class="fa fa-user-circle fa-5x defaultImage"
+                            *ngIf="!groupImage"
+                            aria-hidden="true"
+                          ></i>
+                          <img
+                            class="imageStyles"
+                            *ngIf="groupImage"
+                            [src]="groupImage"
+                          />
+
+                          <i
+                            class="fa fa-camera uploadIcon"
+                            aria-hidden="true"
+                          ></i>
+                        </div>
+                        <input
+                          formControlName="groupimage"
+                          type="file"
+                          id="image"
+                          style="display: none"
+                          name="image"
+                          (change)="uploadImage($event)"
+                        />
+                      </label>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-6 form-outline mb-2">
+                      <label class="form-label" for="groupname"
+                        >Group Name <span class="text-red">*</span></label
+                      >
+                      <input
+                        type="text"
+                        formControlName="groupname"
+                        id="groupname"
+                        class="form-control"
+                        placeholder="Please enter the Group Name"
+                      />
+                    </div>
+                    <div class="col-md-6 form-outline mb-2 mt-2 statusToggle">
+                      <label class="form-label" for="nickname"
+                        >Group Status</label
+                      >
+                      <div class="form-check form-switch">
+                        <input
+                          class="form-check-input"
+                          formControlName="active"
+                          type="checkbox"
+                          id="flexSwitchCheckChecked"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="flexSwitchCheckChecked"
+                          >{{
+                            groupForm.value.active ? "Active" : "In Active"
+                          }}</label
+                        >
+                      </div>
+                    </div>
+                </div>
+                    <div class="mt-4">
+                      <p class="warningMessage mb-0" *ngIf="!groupForm.valid">
+                        <span class="text-red align-center">*</span>
+                        <b> Marked fields are required</b>
+                      </p>
+                      <button
+                        type="submit"
+                        class="btn btn-primary btn-block mt-2 w-100"
+                        (click)="create()"
+                        [disabled]="!groupForm.valid"
+                      >
+                        Create the group
+                      </button>
+                    </div>
+
+                    <a
+                      class="d-flex justify-content-center mt-4"
+                      [routerLink]="'/create-contacts'"
+                    >
+                      Add contacts to group
+                    </a>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="hidden-sm hidden-xs col-lg-2 col-md-2 col-xs-12 col-sm-12 d-flex align-items-center gradient-custom"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

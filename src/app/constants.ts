@@ -2,7 +2,7 @@ export function getBaseHeaders(): Record<string, string> {
   return { 'Content-type': 'application/json' };
 }
 
-export const VALID_EMAIL_DOMAINS = ['inmar', 'test'];
+export const VALID_EMAIL_DOMAINS = ['inmar'];
 export const EMAIL_REGEX =
   '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?(inmar).com$';
 

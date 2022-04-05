@@ -32,36 +32,38 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     const getAllUserDetails = this._sharedService.getAllUserDetails();
-    if(getAllUserDetails?.length) {
+    if (getAllUserDetails?.length) {
       this.validateUser(getAllUserDetails, this.loginForm.value);
     } else {
       this._sharedService.showPopup({
         value: true,
         title: 'ERROR',
-        message:
-          'No User Found with the given details',
+        message: 'No User Found with the given details',
         confirmationButtons: false,
       });
     }
   }
 
   validateUser(allUsers, userDetails) {
-    allUsers.forEach((user) => {
-      if (
-        user.email === userDetails.email &&
-        user.password === userDetails.password
-      ) {
-        this._sharedService.currentUser(user);
-        this.router.navigate(['/']);
-      } else {
-        this._sharedService.showPopup({
-          value: true,
-          title: 'ERROR',
-          message:
-            'You have entered the Wrong credentials, Please try again !!',
-          confirmationButtons: false,
-        });
-      }
-    });
+    const validUser = (user) =>
+      user.email === userDetails.email &&
+      user.password === userDetails.password;
+
+    if (allUsers.some(validUser)) {
+      const loggedInUser = allUsers.filter(
+        (user) =>
+          user.email === userDetails.email &&
+          user.password === userDetails.password
+      );
+      this._sharedService.currentUser(loggedInUser[0]);
+      this.router.navigate(['/']);
+    } else {
+      this._sharedService.showPopup({
+        value: true,
+        title: 'ERROR',
+        message: 'You have entered the Wrong credentials, Please try again !!',
+        confirmationButtons: false,
+      });
+    }
   }
 }

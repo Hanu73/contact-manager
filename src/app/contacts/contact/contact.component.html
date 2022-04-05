@@ -8,38 +8,72 @@
               <div class="card-body p-md-5 mx-md-4">
                 <div class="text-center">
                   <i class="fa fa-address-book fs-100"></i>
-                  <h4 class="mt-1 mb-5 pb-1">Create a Contact</h4>
+                  <h4 class="mt-1 mb-5 pb-1">Create Contact & Add to Group</h4>
                 </div>
+
+                <h3
+                  class="text-center"
+                  *ngIf="!allGroups && !allGroups?.length"
+                >
+                  Oops, you dont have any groups to add the contact, Kindly,
+                  <a [routerLink]="'/create-groups'"> Create a group</a>
+                </h3>
                 <div
                   class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-sm-12"
                 >
-                  <form class="mb-5" [formGroup]="contactForm">
+                  <form
+                    class="mb-5"
+                    [formGroup]="contactForm"
+                    *ngIf="allGroups?.length"
+                  >
                     <div class="form-outline mb-2">
                       <label class="form-label" for="firstname"
-                        >First Name <span class="text-red">*</span></label
+                        >Group Name <span class="text-red">*</span></label
                       >
-                      <input
-                        type="text"
-                        formControlName="firstname"
-                        id="firstname"
-                        class="form-control"
-                        placeholder="Please enter the First Name"
-                      />
+                      <select
+                        class="form-select"
+                        formControlName="groupid"
+                        aria-label="Default select example"
+                        placeholder="Please select the group name"
+                      >
+                        <option value="default" disabled>
+                          Please select the group to add the contact
+                        </option>
+                        <option
+                          *ngFor="let group of allGroups"
+                          value="{{ group.groupId }}"
+                        >
+                          {{ group.groupname }}
+                        </option>
+                      </select>
                     </div>
+                    <div class="row">
+                      <div class="col-md-6 form-outline mb-2">
+                        <label class="form-label" for="firstname"
+                          >First Name <span class="text-red">*</span></label
+                        >
+                        <input
+                          type="text"
+                          formControlName="firstname"
+                          id="firstname"
+                          class="form-control"
+                          placeholder="Please enter the First Name"
+                        />
+                      </div>
 
-                    <div class="form-outline mb-2">
-                      <label class="form-label" for="lastname"
-                        >Last Name
-                      </label>
-                      <input
-                        type="text"
-                        formControlName="lastname"
-                        id="lastname"
-                        class="form-control"
-                        placeholder="Please enter the Last Name"
-                      />
+                      <div class="col-md-6 form-outline mb-2">
+                        <label class="form-label" for="lastname"
+                          >Last Name
+                        </label>
+                        <input
+                          type="text"
+                          formControlName="lastname"
+                          id="lastname"
+                          class="form-control"
+                          placeholder="Please enter the Last Name"
+                        />
+                      </div>
                     </div>
-
                     <div class="form-outline mb-2">
                       <label class="form-label" for="phonenumber"
                         >Phone Number <span class="text-red">*</span>
@@ -62,30 +96,52 @@
                       Please enter a valid 10 Digit Phone Number
                     </p>
 
-                    <p></p>
+                    <div class="row">
+                      <div class="col-md-6 form-outline mb-2">
+                        <label class="form-label" for="registerEmail"
+                          >Email <span class="text-red">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          formControlName="email"
+                          id="registerEmail"
+                          class="form-control"
+                          placeholder="Please enter the Email"
+                        />
+                      </div>
 
-                    <div class="form-outline mb-2">
-                      <label class="form-label" for="registerEmail"
-                        >Email
-                      </label>
-                      <input
-                        type="email"
-                        formControlName="email"
-                        id="registerEmail"
-                        class="form-control"
-                        placeholder="Please enter the Email"
-                      />
+                      <div class="col-md-6 form-outline mb-2">
+                        <label class="form-label" for="nickname"
+                          >Nick name</label
+                        >
+                        <input
+                          type="text"
+                          formControlName="nickname"
+                          id="nickname"
+                          class="form-control"
+                          placeholder="Please enter the Nick Name"
+                        />
+                      </div>
                     </div>
-
-                    <div class="form-outline mb-2">
-                      <label class="form-label" for="nickname">Nick name</label>
-                      <input
-                        type="text"
-                        formControlName="nickname"
-                        id="nickname"
-                        class="form-control"
-                        placeholder="Please enter the Nick Name"
-                      />
+                    <div class="form-outline mb-2 mt-2">
+                      <label class="form-label pr-4" for="nickname"
+                        >Contact Status</label
+                      >
+                      <div class="d-inline-block form-check form-switch">
+                        <input
+                          class="form-check-input"
+                          formControlName="active"
+                          type="checkbox"
+                          id="flexSwitchCheckChecked"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="flexSwitchCheckChecked"
+                          >{{
+                            contactForm.value.active ? "Active" : "In Active"
+                          }}</label
+                        >
+                      </div>
                     </div>
 
                     <div class="mt-4">
@@ -97,17 +153,21 @@
                         type="submit"
                         class="btn btn-primary btn-block mt-2 w-100"
                         (click)="create()"
+                        [disabled]="
+                          !contactForm.valid ||
+                          showPhoneNumberError ||
+                          this.contactForm.value.groupid === 'default'
+                        "
                       >
                         Create the contact
                       </button>
                     </div>
-
                     <a
                       class="d-flex justify-content-center mt-4"
                       [routerLink]="'/contacts-groups'"
                     >
                       View All Your Contacts
-                </a>
+                    </a>
                   </form>
                 </div>
               </div>

@@ -6,40 +6,73 @@
           <div class="row g-0">
             <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
               <div class="card-body p-md-5 mx-md-4">
-                <div class="text-center">Contacts</div>
-
-                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 contacts-div mt-2">
+                <div class="text-center">All Groups</div>
+                <div
+                  class="col-lg-12 col-md-12 col-xs-12 col-sm-12 lists-div mt-2 shadow"
+                >
                   <div
-                    class="row contact-cards mt-2"
+                    class="row lists-cards mt-2"
+                    *ngFor="let group of groups"
+                  >
+                    <div
+                      class="col-lg-3 col-md-3 col-xs-3 col-sm-3 mt-1 text-center"
+                    >
+                      <div
+                        class="lists-image gradient-custom padding-15"
+                        *ngIf="!group.groupimage"
+                      >
+                        {{ group.groupname[0].toUpperCase() }}
+                      </div>
+                      <img
+                        class="imageStyles"
+                        *ngIf="group.groupimage"
+                        [src]="group.groupimage"
+                      />
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 text-center">
+                      <p class="mb-0 mt-0">
+                        {{ group.groupname }}
+                      </p>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                      <i class="fa fa-pencil px-4" aria-hidden="true"></i>
+
+                      <i class="fa fa-trash px-4" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                <div></div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+              <div class="card-body p-md-5 mx-md-4">
+                <div class="text-center">All Contacts</div>
+
+                <div
+                  class="col-lg-12 col-md-12 col-xs-12 col-sm-12 lists-div mt-2 shadow"
+                >
+                  <div
+                    class="row lists-cards mt-2"
                     *ngFor="let contact of contacts"
                   >
                     <div
-                      class="contact-image col-lg-3 col-md-3 col-xs-12 col-sm-12 mt-2"
+                      class="lists-image gradient-custom col-lg-3 col-md-3 col-xs-3 col-sm-3 mt-1 text-center"
                     >
                       {{ contact.firstname[0] }}
                     </div>
-                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 text-center">
                       <p class="mb-0 mt-0">
                         {{ contact.firstname + " " + contact.lastname }}
                       </p>
                       <small>{{ contact.phonenumber }}</small>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12">
-                      
-                        <i class="fa fa-pencil px-4" aria-hidden="true"></i>
-                    
-                        <i class="fa fa-trash px-4" aria-hidden="true"></i>
-                      
+                    <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                      <i class="fa fa-pencil px-4" aria-hidden="true"></i>
+
+                      <i class="fa fa-trash px-4" aria-hidden="true"></i>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
-              <div class="card-body p-md-5 mx-md-4">
-                <div class="text-center">Groups</div>
-
-                <div></div>
               </div>
             </div>
           </div>

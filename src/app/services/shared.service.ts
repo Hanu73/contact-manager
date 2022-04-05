@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { IModalPopup } from '../interfaces/ImodalPopup';
@@ -11,6 +11,7 @@ export class SharedService {
   currentRoute: string;
   currentUserDetails: any;
   allUsers: any;
+  allGroups: any;
 
   modalPopup$ = new BehaviorSubject<any>([]);
   getModalPopupStatus = this.modalPopup$.asObservable();
@@ -18,12 +19,25 @@ export class SharedService {
   alertMessage$ = new BehaviorSubject<any>([]);
   getAlertMessages = this.alertMessage$.asObservable();
 
+  groupId$ = new BehaviorSubject<any>('');
+  getNewGroupId = this.groupId$.asObservable();
+  groupDetails: any;
+
   constructor(
     private readonly _storageService: StorageService,
     private readonly router: Router
-  ) {
-    this.allUsers = this.getAllUserDetails();
-    this.currentUserDetails = this.getCurrentUserDetails();
+  ) {}
+
+  showPopup(modalData: IModalPopup | boolean) {
+    this.modalPopup$.next(modalData);
+  }
+
+  showAlerts(alertData) {
+    this.alertMessage$.next(alertData);
+  }
+
+  setNewGroupId(groupId) {
+    this.groupId$.next(groupId);
   }
 
   //random id generator
@@ -38,16 +52,6 @@ export class SharedService {
     allUniqueIds?.includes(result) ? this.uniqueRandomID(length) : '';
     return result;
   };
-
-  showPopup(data: IModalPopup | boolean) {
-    console.log(data);
-    this.modalPopup$.next(data);
-  }
-
-  showAlerts(data) {
-    console.log(data);
-    this.alertMessage$.next(data);
-  }
 
   getUniqueIDs() {
     return JSON.parse(this._storageService.getLocalStorage('allUserIds'));
@@ -65,6 +69,7 @@ export class SharedService {
   }
 
   addNewUser(newUser) {
+    this.allUsers = this.getAllUserDetails();
     const updatedUsersList =
       this.allUsers && this.allUsers?.length
         ? [...this.allUsers, newUser]
@@ -106,8 +111,10 @@ export class SharedService {
   }
 
   addContactsForUser(contactDetails) {
+    this.allUsers = this.getAllUserDetails();
+    this.currentUserDetails = this.getCurrentUserDetails();
     this.allUsers.map((user) => {
-      if (user.id === this.currentUserDetails.id) {
+      if (user.userId === this.currentUserDetails.userId) {
         const contacts =
           user.contacts && user.contacts?.length
             ? [...user.contacts, contactDetails]
@@ -117,5 +124,59 @@ export class SharedService {
       }
     });
     this.updateAllusers(this.allUsers);
+  }
+
+  addGroupsForUser(groupDetails) {
+    this.allUsers = this.getAllUserDetails();
+    this.currentUserDetails = this.getCurrentUserDetails();
+    this.allUsers.map((user) => {
+      if (user.userId === this.currentUserDetails.userId) {
+        const groups =
+          user.groups && user.groups?.length
+            ? [...user.groups, groupDetails]
+            : [groupDetails];
+        user.groups = groups;
+        this.updateCurrentUser(user);
+      }
+    });
+    this.updateAllusers(this.allUsers);
+  }
+
+  setGroupDetails(key, data) {
+    this._storageService.setLocalStorage(key, JSON.stringify(data));
+  }
+
+  addNewGroup(newGroup) {
+    this.allGroups = this.getAllGroupDetails();
+    const updatedGroupsList =
+      this.allGroups && this.allGroups?.length
+        ? [...this.allGroups, newGroup]
+        : [newGroup];
+    this.updateAllGroups(updatedGroupsList);
+  }
+
+  getAllGroupDetails() {
+    return JSON.parse(this._storageService.getLocalStorage('allGroups'));
+  }
+
+  updateAllGroups(updatedGroupsList) {
+    this._storageService.setLocalStorage(
+      'allGroups',
+      JSON.stringify(updatedGroupsList)
+    );
+  }
+
+  getGroupDetailsById(id: string) {
+    this.allGroups = this.getAllGroupDetails();
+    this.groupDetails = this.allGroups.filter((g) => g.groupId === id);
+    return this.groupDetails;
+  }
+
+  getFullGroupDetailsOfCurrentUser(userId: string) {
+    this.allGroups = this.getAllGroupDetails();
+    const userGroups = this.allGroups.filter(
+      (group) => group.createdBy === userId
+    );
+    return userGroups;
   }
 }

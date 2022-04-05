@@ -4,5 +4,5 @@ export class IUserDetails {
   aadhaar: number;
   email: string;
   password: string;
-  id: string;
+  userId: string;
 }

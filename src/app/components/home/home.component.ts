@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
     this.currentUser = this._sharedService.getCurrentUserDetails();
     const { firstname, lastname } = this.currentUser;
     this.fullName = `${firstname} ${lastname}`;
-    console.log(this.currentUser);
   }
 
   triggerFeature(activity) {

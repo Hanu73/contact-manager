@@ -1,5 +1,5 @@
-:root{
-  --card-fill : #F7F7F7;
+:root {
+  --card-fill: #f7f7f7;
 }
 
 .gradient-custom {
@@ -28,7 +28,8 @@
 .w-100 {
   width: 100%;
 }
-.text-red, .required {
+.text-red,
+.required {
   color: red;
 }
 .emailCondition {
@@ -135,8 +136,14 @@
 
 /* features styles */
 
-.productImageStyles{
+.productImageStyles {
   width: 150px;
   height: 150px;
   max-height: 150px;
+}
+
+/* End of features styles */
+
+.pr-4 {
+  padding-right: 4%;
 }
