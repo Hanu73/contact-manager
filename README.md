@@ -5,7 +5,7 @@
  
 ## Hosted URL 
 
-https://employee-group-manager.herokuapp.com/
+https://contact-manager-alpha.vercel.app/
 
 ## Development server
 
