@@ -28,7 +28,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.emailRegex =
-      '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?(inmar).*$';
+      '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?(gmail).*$';
     this.signUpForm = new FormGroup({
       firstname: new FormControl('', Validators.required),
       lastname: new FormControl('', Validators.required),
